@@ -1,1 +1,4 @@
-Detailed description, can be in markdown format
+Zend Server Skeleton Plugins
+==========
+
+This package describes the most basic plugin for Z-Ray
