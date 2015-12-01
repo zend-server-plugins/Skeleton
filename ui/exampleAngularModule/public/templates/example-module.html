@@ -1,0 +1,46 @@
+<!-- Add the title, description and breadcrumbs to the top of the page -->
+<div id="bread-wrp" class="page-description">
+	<div id="bread">
+		<!-- The title of the page -->
+		<h1>Example module</h1>
+		
+		<!-- The description of the page -->
+		<div class="glyphicons bread-info-btn">
+			<i></i> <!-- the "info" icon is displayed here -->
+			<div class="page-description-content-wrapper">
+				<div class="triangle"></div>
+				<div class="page-description-content" style="width: 700px;">
+					<!-- Here comes the description of the page. Please replace the content with a relevant text -->
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vitae metus finibus, 
+					ornare mi vitae, pharetra quam. Vivamus vel ligula sed leo pretium semper non in 
+					diam. Maecenas sit amet massa eros. Vivamus nec lorem arcu. Suspendisse potenti. 
+					Proin quis tempus lacus. Cras nec mollis libero, a mollis enim. Fusce blandit 
+					gravida purus eget blandit. Maecenas efficitur felis vel mauris convallis tristique
+				</div>
+			</div>
+		</div>
+		
+		<!-- breadcrumbs -->
+		<ul>
+			<li><a href="/ZendServer/#!/example-module">Angular module</a></li>			
+		</ul>
+	</div>
+</div>
+
+<!-- Angular's template -->
+<table class="zgrid"> <!-- Usage of an existing class "zgrid" -->
+	<tr>
+		<th>Id</th>
+		<th class="example-angular-module-name-column">Name</th>
+		<th>F.Name</th>
+		<th>B.Month</th>
+		<th>&nbsp;</th>
+	</tr>
+	<tr ng-repeat="person in people">
+		<td>{{person.id}}</td>
+		<td class="example-angular-module-name-column">{{person.name}}</td>
+		<td>{{person.family}}</td>
+		<td>{{person.bmonth}}</td>
+		<td><button ng-click="viewPersonData(person.id)">Info</button></td>
+	</tr>
+</table>

@@ -1,0 +1,7 @@
+/* example-module.css - example-module */
+
+/* Emphasize the "name" column */
+.example-angular-module-name-column {
+	background: #DDEEFF;
+	font-weight: bold;
+}

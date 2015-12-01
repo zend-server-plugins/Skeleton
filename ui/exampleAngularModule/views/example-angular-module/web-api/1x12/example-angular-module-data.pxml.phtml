@@ -1,0 +1,12 @@
+<responseData>
+	<people>
+		<?php foreach ($people as $person) { ?>
+		<person>
+			<id><?php echo $person['id']; ?></id>
+			<name><?php echo $person['name']; ?></name>
+			<family><?php echo $person['family']; ?></family>
+			<bmonth><?php echo $person['bmonth']; ?></bmonth>
+		</person>
+		<?php } ?>
+	</people>
+</responseData>

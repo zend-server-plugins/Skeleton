@@ -1,0 +1,143 @@
+<div id="bread-wrp" class="page-description">
+	<div id="bread">
+		<!-- The title of the page -->
+		<h1>Example Module Page</h1>
+		
+		<!-- The description of the page -->
+		<div class="glyphicons bread-info-btn">
+			<i></i>
+			<div class="page-description-content-wrapper">
+				<div class="triangle"></div>
+				<div class="page-description-content" style="width: 700px;">
+					This is a UI extension example. The page uses zGrid2 (the table) which loads data from a web API that was created in this extension as well.
+					(Here comes the description of the page)
+				</div>
+			</div>
+		</div>
+		
+		<!-- The path to the page -->
+		<ul>
+			<li><a href="<?php echo \Application\Module::config()->baseUrl; ?>/#!/job-queue/example-module-2">Example Module</a></li>
+		</ul>
+	</div>
+</div>
+<div id="people-table"></div>
+<div id="people-table-total"></div>
+<script>
+
+// define columns of the table
+var namesTableColumns = [{
+		'title': 'ID',
+		'dataIndex': 'id',
+		'parser': zGrid2.prototype.string,
+		'width': '10%',
+		'sortable': true,
+		'sortBy': 'id'
+	}, {
+		'title': 'Name',
+		'dataIndex': 'name',
+		'parser': zGrid2.prototype.string,
+		'width': '30%',
+		'sortable': true,
+		'sortBy': 'name'
+	}, {
+		'title': 'Family',
+		'dataIndex': 'family',
+		'parser': zGrid2.prototype.string,
+		'width': '30%',
+		'sortable': true,
+		'sortBy': 'family'
+	}, {
+		'title': 'Birth Month',
+		'dataIndex': 'bmonth',
+		'parser': zGrid2.prototype.string,
+		'width': '30%',
+		'sortable': true,
+		'sortBy': 'bmonth'
+	},
+	// add buttons
+	// You can use one if the following available "dataIndex": expand, checkUpdate, reload, update, info, runCheckUpdates, suspend, 
+	// resume, runNow, rollback, redeploy, default, delete, remove, expire, copy, clean, settings, restart, export, force_remove, 
+	// apply_changes, revert_changes, disable, enable, edit, manage, unmanage, rename, new_rule
+	// 
+	// If you use your own "dataIndex" (which is not in the list), you will have to define your own CSS rule with an icon
+	{
+		'title': 'Manage',
+		'dataIndex': 'manage',
+		'parser': zGrid2.prototype.button,
+	}, {
+		'title': 'Edit',
+		'dataIndex': 'edit',
+		'width': '20%',
+		'parser': zGrid2.prototype.button,
+		
+		// add a condition whether to display the button or not
+		'display': function(rec) {
+			return rec.name.toLowerCase() != 'Greg';
+		}
+}];
+
+// create the table object using ZF2 View-Helper
+<?php 
+$namesTableOptions = array(
+	'sortedBy'		=> 'id',
+	'direction'		=> 'asc',
+	'idColumn' 		=> 'id',
+	'limit'			=> 10,
+	'multiSelect'	=> true,
+	'totalContainer' => 'people-table-total'
+);
+?>
+var peopleTable = <?php echo $this->zGrid2('people-table', 'namesTableColumns', $namesTableOptions); ?>
+
+// Define the AJAX call where the data for the table is take from.
+namesTableWebAPIUrl = '/ZendServer/Api/exampleZf2ModuleData';
+peopleTable.loadRequest = new Request.WebAPI({
+	method: 'get',
+	url:namesTableWebAPIUrl,
+	onSuccess: function(response) {
+		peopleTable.setData(response.responseData.people, response.responseData.total);
+	},
+	onFailure: function(response) {
+		// show an alert
+		response && 
+			response.errorData && 
+			response.errorData.errorMessage && 
+			document.fireEvent('toastAlert', {'message': response.errorData.errorMessage});
+		
+		peopleTable.setData([], 0);
+	}
+});
+
+// add events on buttons click. "params" looks like:
+//	data: Object (The row's object)
+//		ID: "1"
+//		family: "Chris"
+//		name: "Greg"
+//	rowId: "1"
+//	type: "edit"
+peopleTable.addEvent('buttonClick', function(params) {
+	// the "type" of the button, is the "dataIndex" that you've provided in the table columns definition
+	switch (params.type) {
+		case 'edit':
+			window.console.log('clicked edit', params);
+			break;
+		case 'manage':
+			window.console.log('clicked manage', params);
+			break;
+		default: break;
+	}
+});
+
+// Event when selecting a row (when multiSelect is "true"). "params" looks like:
+// checked: true (the updated status)
+// data: Object
+// rowId: "3"
+peopleTable.addEvent('rowChecked', function(params) {
+	console.log('Row checked. Params', params);
+});
+
+// Load the data
+peopleTable.loadRequest.get();
+
+</script>

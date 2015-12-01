@@ -1,0 +1,18 @@
+<?php
+// The main key is called "responseData", its value is JSON formatted 
+// list of people objects and the total number. The output of this 
+// file is injected into the response JSON object
+?>
+"responseData":{
+	"people": [
+		<?php foreach ($people as $i => $person) { ?>
+		{
+			"id":<?php echo json_encode($person['id']); ?>,
+			"name":<?php echo json_encode($person['name']); ?>,
+			"family":<?php echo json_encode($person['family']); ?>,
+			"bmonth":<?php echo json_encode($person['bmonth']); ?>
+		}
+		<?php if ($i < count($people) - 1) echo ','; ?>
+		<?php } ?>
+	]
+}
