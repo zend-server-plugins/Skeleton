@@ -2,7 +2,7 @@
   "name" : "skeleton",
   "display_name" : "Skeleton",
   "version" : "1.0.0",
-  "type": ["zray"],
+  "type": ["zray", "ui"],
   "logo": "logo.png",
   "eula": "LICENSE.txt",
   "readme": "README.txt",
